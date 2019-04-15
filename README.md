@@ -331,18 +331,20 @@ rows, err := db.Query("select * from user where id=:1 and name=:2",
 BUILD_TIME=`date +%FT%T%z`
 # echo $BUILD_TIME
 
+BUILD_DIR=`pwd`
+# echo $BUILD_DIR
+
 GIT_VER=$(git rev-parse HEAD)
 # echo $GIT_VER
 
 GIT_COMMIT_TIME=$(git log | head  | grep Date | head -n 1 | awk -F 'Date:' '{print $2}')
 # echo $GIT_COMMIT_TIME
 
-VERSION=$(echo build: $BUILD_TIME, reversion: $GIT_VER, commit time: $GIT_COMMIT_TIME)
+VERSION=$(echo build time: $BUILD_TIME, reversion: $GIT_VER, commit time: $GIT_COMMIT_TIME)
 echo $VERSION
 
 # -tag=jsoniter开启jsoniter, -ldflags带上编译时间和git版本信息
-# go build -tags=jsoniter -ldflags "-X main.Version=${VERSION}" -o hello.bin main.go
-go build -tags=jsoniter -ldflags "-X main.Version=${VERSION}"
+go build -tags=jsoniter -ldflags "-X main.BuildTime=${BUILD_TIME} -X main.Version=${GIT_VER} -X main.CommitTime=${GIT_COMMIT_TIME} -X github.com/temprory/log.DefaultLogTimeLayout=${BUILD_DIR}"
 ```
 
 - package main 中声明Version变量, 接收构建的Version, 并在输出日志
