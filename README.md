@@ -337,14 +337,17 @@ BUILD_DIR=`pwd`
 GIT_VER=$(git rev-parse HEAD)
 # echo $GIT_VER
 
-GIT_COMMIT_TIME=$(git log | head  | grep Date | head -n 1 | awk -F 'Date:' '{print $2}')
-# echo $GIT_COMMIT_TIME
-
-VERSION=$(echo build time: $BUILD_TIME, reversion: $GIT_VER, commit time: $GIT_COMMIT_TIME)
-echo $VERSION
-
 # -tag=jsoniter开启jsoniter, -ldflags带上编译时间和git版本信息
-go build -tags=jsoniter -ldflags "-X main.BuildTime=${BUILD_TIME} -X main.Version=${GIT_VER} -X main.CommitTime=${GIT_COMMIT_TIME} -X github.com/temprory/log.BuildDir=${BUILD_DIR}"
+go build -tags=jsoniter -ldflags "-X main.BuildTime=${BUILD_TIME} -X main.Version=${GIT_VER} -X github.com/temprory/log.BuildDir=${BUILD_DIR}"
+```
+
+- 日志中应输出git版本、构建时间等信息，查看git版本
+```sh
+#!/bin/bash
+
+git log | grep c96e207a34a4a42139f520592899fc82372b0e51 -3 | tail -3
+Author: george <george@yabotiyu.net>
+Date:   Sat Mar 16 22:31:26 2019 +0800
 ```
 
 - package main 中声明Version变量, 接收构建的Version, 并在输出日志
