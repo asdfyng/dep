@@ -338,7 +338,7 @@ GIT_VER=$(git rev-parse HEAD)
 # echo $GIT_VER
 
 # -tag=jsoniter开启jsoniter, -ldflags带上编译时间和git版本信息
-go build -tags=jsoniter -ldflags "-X main.BuildTime=${BUILD_TIME} -X main.Version=${GIT_VER} -X github.com/temprory/log.BuildDir=${BUILD_DIR}"
+go build -tags=jsoniter -ldflags "-X main.BuildTime=${BUILD_TIME} -X main.GitVersion=${GIT_VER} -X github.com/temprory/log.BuildDir=${BUILD_DIR}"
 ```
 
 - 日志中应输出git版本、构建时间等信息，查看git版本
@@ -356,10 +356,11 @@ package main
 
 import "fmt"
 
-var Version = ""
+var BuildTime = ""
+var GitVersion = ""
 
 func main() {
-	fmt.Println("app version info: ", Version)
+	fmt.Println("app version info: ", BuildTime, GitVersion)
 }
 ```
 
