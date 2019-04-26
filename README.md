@@ -344,7 +344,7 @@ VERSION=$(echo build time: $BUILD_TIME, reversion: $GIT_VER, commit time: $GIT_C
 echo $VERSION
 
 # -tag=jsoniter开启jsoniter, -ldflags带上编译时间和git版本信息
-go build -tags=jsoniter -ldflags "-X main.BuildTime=${BUILD_TIME} -X main.Version=${GIT_VER} -X main.CommitTime=${GIT_COMMIT_TIME} -X github.com/temprory/log.DefaultLogTimeLayout=${BUILD_DIR}"
+go build -tags=jsoniter -ldflags "-X main.BuildTime=${BUILD_TIME} -X main.Version=${GIT_VER} -X main.CommitTime=${GIT_COMMIT_TIME} -X github.com/temprory/log.BuildDir=${BUILD_DIR}"
 ```
 
 - package main 中声明Version变量, 接收构建的Version, 并在输出日志
