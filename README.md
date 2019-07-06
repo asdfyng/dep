@@ -346,7 +346,7 @@ go build -tags=jsoniter -ldflags "-X main.BuildTime=${BUILD_TIME} -X main.GitVer
 #!/bin/bash
 
 git log | grep c96e207a34a4a42139f520592899fc82372b0e51 -3 | tail -3
-Author: george <george@yabotiyu.net>
+Author: somebody <somebody@xx.com>
 Date:   Sat Mar 16 22:31:26 2019 +0800
 ```
 
